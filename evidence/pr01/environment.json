@@ -1,0 +1,9 @@
+{
+  "launch_method": "native",
+  "os_version": "Ubuntu 26.04.1 LTS",
+  "ros_distribution": "lyrical",
+  "gazebo_version": "10.5.0",
+  "rmw_implementation": "rmw_fastrtps_cpp",
+  "ros_domain_id": [16, 17],
+  "docker_image_digest": null
+}
