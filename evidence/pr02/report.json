@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR02",
+  "commit": "38aa8dfc64e8139c4f8fdddb7add2cbfe55824ab",
+  "course_kit": {
+    "version": "v1-w03",
+    "archive_sha256": "7fbfd3e8161ab6c6ebefc7663efdaf77d9a7d490399743507f33dcefbd5ac522"
+  },
+  "commands": [
+    "colcon build --symlink-install",
+    "ros2 launch turtle_bringup sim.launch.py",
+    "ros2 topic info /cmd_vel --verbose",
+    "ros2 topic info /turtle1/cmd_vel --verbose"
+  ],
+  "tests": [
+    {"name": "colcon build --symlink-install", "status": "passed"},
+    {"name": "ros2 node list --no-daemon --spin-time 2", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "Публикация geometry_msgs/msg/Twist в /cmd_vel создаёт publisher, но subscription count равен 0.",
+    "root_cause": "Имя topic /cmd_vel не совпадает с /turtle1/cmd_vel; одного совпадения типа сообщения недостаточно.",
+    "proof_after": "Публикация того же geometry_msgs/msg/Twist в /turtle1/cmd_vel показывает subscription /turtlesim и subscription count равен 1."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 0,
+    "self_study_hours": 0
+  },
+  "ai_used": true
+}
