@@ -1,0 +1,38 @@
+PR03 test evidence
+
+Environment: ROS 2 Lyrical, turtlesim_msgs/msg/Pose.
+
+1. Build
+   Command:
+   source /opt/ros/lyrical/setup.bash
+   colcon build --symlink-install --packages-select patrol
+   Result: passed; package patrol built successfully.
+
+2. Unit tests
+   Command:
+   python3 -m pytest -q src/patrol/test
+   Result: passed; 2 passed.
+
+   Covered cases:
+   - no pose produces a zero Twist;
+   - a received pose produces linear.x=0.5 and angular.z=0.3;
+   - untouched Twist fields remain zero.
+
+3. ROS graph defect reproduction
+   Command:
+   ros2 run patrol patrol
+   ros2 topic info /cmd_vel --verbose
+   Result: passed; Type is geometry_msgs/msg/Twist, Publisher count is 1,
+   Subscription count is 0.
+
+4. ROS graph fix
+   Command:
+   ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel
+   ros2 topic info /turtle1/cmd_vel --verbose
+   Result: passed; Publisher count is 1 and turtlesim is the subscriber.
+
+5. Command frequency
+   Command:
+   ros2 topic hz /turtle1/cmd_vel
+   Result: passed; 9.997-9.998 Hz, with a period of about 0.1 s.
+
