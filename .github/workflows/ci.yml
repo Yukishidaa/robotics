@@ -39,7 +39,7 @@ jobs:
           tar -xzf course-kit.tar.gz -C .course-kit
       - name: Check PR evidence
         shell: bash
-        run: python3 .course-kit/v1/tools/check_practice.py PR03 --submission .
+        run: python3 .course-kit/v1/tools/check_practice.py PR04 --submission .
     env:
       COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w04-fec6b4e886c1.tar.gz
       COURSE_KIT_SHA256: fec6b4e886c19146078bf69fbf90a19279a4cd33f656642395350b299efeb226
