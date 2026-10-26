@@ -34,10 +34,8 @@ def validate_parameter(name: str, value: float) -> tuple[bool, str]:
         if value < -1.0 or value > 1.0:
             return False, f"turn_rate must be in [-1, 1], got {value}"
     elif name == "publish_hz":
-        # TEMPORARILY DISABLED for defect reproduction
-        # if value < 1.0 or value > 30.0:
-        #     return False, f"publish_hz must be in [1, 30], got {value}"
-        pass
+        if value < 1.0 or value > 30.0:
+            return False, f"publish_hz must be in [1, 30], got {value}"
     return True, ""
 
 
