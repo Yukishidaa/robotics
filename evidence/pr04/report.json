@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR04",
+  "commit": "51ccd7fad348211b84e93d775136760aecfaa0ab",
+  "course_kit": {
+    "version": "v1-w04",
+    "archive_sha256": "7fbfd3e8161ab6c6ebefc7663efdaf77d9a7d490399743507f33dcefbd5ac522"
+  },
+  "commands": [
+    "colcon build --packages-select patrol",
+    "python3 -m pytest src/patrol/test",
+    "ros2 param set /patrol publish_hz 5.0",
+    "ros2 param set /patrol publish_hz 0.0",
+    "ros2 service call /clear std_srvs/srv/Empty",
+    "ros2 action list -t | grep rotate_absolute"
+  ],
+  "tests": [
+    {"name": "patrol package build", "status": "passed"},
+    {"name": "pure parameter validation tests", "status": "passed"},
+    {"name": "publish_hz 10->5 Hz changes command stream", "status": "passed"},
+    {"name": "publish_hz zero rejected, old frequency preserved", "status": "passed"},
+    {"name": "publish_hz negative and NaN rejected", "status": "passed"},
+    {"name": "action server rotate_absolute discovered", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "В коммите 312dab0 проверка publish_hz отключена; установка publish_hz=0.0 проходит, но создаёт таймер с периодом 1/0 — деление на ноль ломает активное состояние ноды.",
+    "root_cause": "Валидация параметра publish_hz не запрещает значение 0; при динамическом изменении таймер пересоздаётся с периодом 1/0, что приводит к неопределённому поведению.",
+    "proof_after": "В коммите 51ccd7f валидация восстановлена; ros2 param set /patrol publish_hz 0.0 возвращает ошибку 'publish_hz must be in [1, 30], got 0.0', частота остаётся 5.0, поток команд не меняется."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "ai_used": true
+}

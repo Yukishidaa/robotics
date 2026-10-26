@@ -1,0 +1,31 @@
+PR04 test evidence
+
+Environment: ROS 2 Lyrical, turtlesim_msgs/msg/Pose.
+
+1. Unit tests (pure parameter validation)
+   Command:
+   python3 -m pytest -q src/patrol/test
+   Result: passed; 18 passed.
+
+   Covered cases:
+   - command_for_pose: no pose produces zero Twist; pose produces expected linear/angluar; parameters used correctly
+   - validate_parameter: all bounds for linear_speed [0,1], turn_rate [-1,1], publish_hz [1,30]
+   - invalid values rejected: negative, above max, zero for publish_hz, NaN, Inf
+
+2. Parameter validation in node (defect reproduction)
+   - Commit 312dab0: validation for publish_hz temporarily disabled
+   - Setting publish_hz=0.0 accepted but causes timer period 1/0 (division by zero / infinity)
+   - This reproduces the defect: invalid frequency breaks active state
+
+3. Parameter validation fixed (defect fixed)
+   - Commit 51ccd7f: validation restored
+   - Setting publish_hz=0.0 rejected with "publish_hz must be in [1, 30], got 0.0"
+   - Old frequency preserved; command stream unchanged
+   - Setting publish_hz=5.0 accepted, timer recreated with 0.2s period
+   - Negative and NaN values also rejected
+
+4. Action server discovery
+   Command:
+   ros2 service call /clear std_srvs/srv/Empty
+   ros2 action list -t | grep rotate_absolute
+   Result: /turtle1/rotate_absolute [turtlesim_msgs/action/RotateAbsolute] found
