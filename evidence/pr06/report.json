@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR06",
+  "commit": "efa7a9d66b3613ee0be62c30ccf6df2b5fce4bfb",
+  "course_kit": {
+    "version": "v1-w08",
+    "archive_sha256": "aea8efd0a51668af63f2e475b82bfa28bd76c21f20d8afea6b136d43a56a88fb"
+  },
+  "commands": [
+    "xacro src/course_description/urdf/vehicle.urdf.xacro > /tmp/vehicle.urdf",
+    "check_urdf /tmp/vehicle.urdf",
+    "colcon test --packages-select course_description",
+    "ros2 run robot_state_publisher robot_state_publisher",
+    "ros2 topic info /tf_static --verbose",
+    "ros2 topic echo /tf_static --once",
+    "ros2 run tf2_ros tf2_echo base_link lidar_link",
+    "ros2 run tf2_tools view_frames"
+  ],
+  "tests": [
+    {"name": "urdf_model_structure", "status": "passed"},
+    {"name": "model_check", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "Сделать camera_link родителем lidar_link вместо base_link, сохранив offset. Лидар окажется в неправильном положении (смещён относительно камеры, а не корпуса), тест ожидаемого parent упадёт.",
+    "root_cause": "Неверное parent в дереве tf2: лидар прикреплён к камере вместо корпуса, что ломает geometрию модели и даёт неверное положение сенсора.",
+    "proof_after": "Возвращена связь lidar_link → base_link. tf2_echo показывает корректное положение, frames.md фиксирует верных владельцев, check_urdf и тесты зелёные."
+  },
+  "time": {
+    "contact_academic_hours": 1.5,
+    "self_study_hours": 2.0
+  },
+  "ai_used": true,
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  }
+}

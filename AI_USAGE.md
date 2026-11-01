@@ -52,3 +52,12 @@
 - Затронутые компоненты: пакет `src/course_bringup` (launch-файл), пакет `src/patrol` (ноды `pose_relay`, `qos_subscriber`, конфиг `qos-overrides.yaml`), файлы `evidence/pr05/`, `.github/workflows/ros-checks.yml`.
 - Характер помощи: разбор требований PR05, создание launch-файла с аргументами namespace/record/bag_dir/subscriber_reliability, реализация ноды pose_relay с best_effort QoS, ноды qos_subscriber с настраиваемым reliability, настройка CI для PR05, подготовка evidence (qos-before.txt, qos-after.txt, bag-metadata.yaml, report.json).
 - Как результат был проверен независимо: пакеты собраны через `colcon build`, unit-тесты пройдены (18 passed), исполняемые файлы доступны через `ros2 pkg executables`, launch-файл парсится без ошибок, evidence соответствует манифесту PR05.
+
+## PR06
+
+- Использован ИИ: да (`ai_used: true` в отчёте этой ПР).
+- Модель и версия: GPT 5.6 Terra.
+- Среда или интерфейс агента: Codex.
+- Затронутые компоненты: пакет `src/course_description` (URDF/Xacro модель, launch-файл, тесты), файлы `evidence/pr06/`, `AI_USAGE.md`.
+- Характер помощи: разбор требований PR06, создание параметризованной Xacro модели Ackermann-робота (base_link, камера, лидар, IMU, колёса), настройка tf2 дерева, подготовка evidence (frames.md, model-check.txt, tf-qos.txt, report.json).
+- Как результат был проверен независимо: Xacro развёрнут в корректный URDF, `check_urdf` проходит без ошибок, дерево связное (7 дочерних ссылок от base_link), все link'и имеют visual/collision/inertial.
