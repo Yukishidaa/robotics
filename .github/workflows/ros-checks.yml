@@ -41,6 +41,7 @@ jobs:
       - name: Download course kit (w08)
         shell: bash
         run: |
+          rm -rf .course-kit
           curl -fsSLo course-kit.tar.gz "$COURSE_KIT_URL"
           printf '%s  %s\n' "$COURSE_KIT_SHA256" course-kit.tar.gz | sha256sum -c -
           mkdir -p .course-kit
