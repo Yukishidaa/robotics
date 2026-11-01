@@ -43,3 +43,12 @@
 - Затронутые компоненты: пакет `src/patrol` (валидация параметров, пересоздание таймера), файлы `evidence/pr04/parameters.md`, `evidence/pr04/tests.txt`, `evidence/pr04/report.json`.
 - Характер помощи: разбор требований PR04, реализация динамической переконфигурации параметров с валидацией до изменения активного состояния, воспроизведение дефекта через временное отключение проверки частоты, подтверждение отклонения недопустимых значений, поиск action-сервера rotate_absolute.
 - Как результат был проверен независимо: пакет собран через `colcon`, unit-тесты параметров пройдены (18 passed), evidence проверен локальным checker из course kit.
+
+## PR05
+
+- Использован ИИ: да (`ai_used: true` в отчёте этой ПР).
+- Модель и версия: GPT 5.6 Terra.
+- Среда или интерфейс агента: Codex.
+- Затронутые компоненты: пакет `src/course_bringup` (launch-файл), пакет `src/patrol` (ноды `pose_relay`, `qos_subscriber`, конфиг `qos-overrides.yaml`), файлы `evidence/pr05/`, `.github/workflows/ros-checks.yml`.
+- Характер помощи: разбор требований PR05, создание launch-файла с аргументами namespace/record/bag_dir/subscriber_reliability, реализация ноды pose_relay с best_effort QoS, ноды qos_subscriber с настраиваемым reliability, настройка CI для PR05, подготовка evidence (qos-before.txt, qos-after.txt, bag-metadata.yaml, report.json).
+- Как результат был проверен независимо: пакеты собраны через `colcon build`, unit-тесты пройдены (18 passed), исполняемые файлы доступны через `ros2 pkg executables`, launch-файл парсится без ошибок, evidence соответствует манифесту PR05.
