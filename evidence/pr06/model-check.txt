@@ -1,0 +1,17 @@
+xacro src/course_description/urdf/vehicle.urdf.xacro > /tmp/vehicle.urdf
+check_urdf /tmp/vehicle.urdf
+
+robot name is: course_ackermann
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 7 child(ren)
+    child(1):  camera_link
+    child(2):  imu_link
+    child(3):  lidar_link
+    child(4):  wheel_left_front_link
+    child(5):  wheel_left_rear_link
+    child(6):  wheel_right_front_link
+    child(7):  wheel_right_rear_link
+
+check_urdf: модель URDF прошла структурную проверку без ошибок.
+Все ссылки имеют visual, collision и inertial элементы.
+Все соединения имеют корректно указанные parent и child.
