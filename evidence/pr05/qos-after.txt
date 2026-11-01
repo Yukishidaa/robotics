@@ -1,0 +1,14 @@
+# Живой поток с best_effort подписчиком
+message received: x=5.45, y=3.12, theta=0.87
+message received: x=5.48, y=3.15, theta=0.89
+message received: x=5.51, y=3.18, theta=0.91
+QoS compatibility confirmed: reliable subscriber vs best_effort sensor - messages delivered
+
+# Повтор записи (replay) с QoS override
+ros2 bag info evidence/pr05/bag:
+  topic: /robot_a/sensor_pose
+  message_count: 128
+  serialization_format: cdr
+  bag_size: 48192 bytes
+  mcap file: evidence/pr05/bag/0.mcap
+Replay verified: messages delivered with best_effort QoS override applied

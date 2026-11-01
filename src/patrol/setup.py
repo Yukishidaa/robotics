@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-
+from glob import glob
 
 package_name = "patrol"
 
@@ -18,5 +18,9 @@ setup(
     description="A simple turtlesim patrol node",
     license="Apache-2.0",
     extras_require={"test": ["pytest"]},
-    entry_points={"console_scripts": ["patrol = patrol.patrol:main"]},
+    entry_points={"console_scripts": [
+        "patrol = patrol.patrol:main",
+        "pose_relay = patrol.pose_relay:main",
+        "qos_subscriber = patrol.subscriber_qos:main",
+    ]},
 )
