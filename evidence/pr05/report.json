@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "practice_id": "PR05",
-  "commit": "22d44b86b8422dbfaf8ef962e409361d1febebc6",
+  "commit": "47397e6",
   "course_kit": {
-    "version": "1.0.0",
-    "archive_sha256": "fec6b4e886c19146078bf69fbf90a19279a4cd33f656642395350b299efeb226"
+    "version": "v1-w08",
+    "archive_sha256": "aea8efd0a51668af63f2e475b82bfa28bd76c21f20d8afea6b136d43a56a88fb"
   },
   "commands": [
     "ros2 launch course_bringup patrol.launch.py namespace:=robot_a subscriber_reliability:=reliable record:=false",
